@@ -22,8 +22,6 @@ The following fields are possible for categories (the only mandatory value is qu
 | feature | object (see below) | | an object describing how the feature will be formatted resp. styled.
 | info | html string | | Map key of the category. [TwigJS](./TwigJS.md) is possible here.
 | const | object | | an object variable which is available as prefix in twig functions.
-| filter | object | | optional filters for the category, see [Filters](./Filters.md).
-| config | object | | optional configuration for the category, see [Filters](./Filters.md).
 
 Additional fields:
 
