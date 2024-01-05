@@ -110,7 +110,7 @@ Additional fields:
 | pane | overlayPane *or* hover *or* selected *or* casing *or self defined* | overlayPane | show vector on the specified pane.
 
 ## Additional Panes
-With the global 'panes' option, you can create additional panes. It is a hash with the name of the pane as key and an object of the style parameters as value.
+With the global 'panes' option, you can create additional panes. It is a hash with the name of the pane as key and an object of the style parameters as value. Check the [LeafletJS documentation](https://leafletjs.com/reference.html#map-pane) for the zIndex values of the default panes.
 
 Example:
 ```yaml
