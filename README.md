@@ -22,6 +22,7 @@ The following fields are possible for categories (the only mandatory value is qu
 | feature | object (see below) | | an object describing how the feature will be formatted resp. styled.
 | info | html string | | Map key of the category. [TwigJS](./TwigJS.md) is possible here.
 | const | object | | an object variable which is available as prefix in twig functions.
+| panes | object | | define additional panes (see below)
 
 Additional fields:
 
@@ -107,3 +108,14 @@ Additional fields:
 | smoothFactor | float | 1.0 | (unclosed ways only) How much to simplify the polyline on each zoom level.
 | noClip | boolean | false | (unclosed ways only) Disable polyline clipping. (boolean, false)
 | pane | overlayPane *or* hover *or* selected *or* casing *or self defined* | overlayPane | show vector on the specified pane.
+
+## Additional Panes
+With the global 'panes' option, you can create additional panes. It is a hash with the name of the pane as key and an object of the style parameters as value.
+
+Example:
+```yaml
+panes:
+  labels:
+    zIndex: 650
+    pointerEvents: none
+```
