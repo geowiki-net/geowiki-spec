@@ -55,35 +55,37 @@ For the info-section of a category the following properties are available:
 * `const.*` (Values from the 'const' option)
 
 There are several extra functions defined for the TwigJS language:
-* function `keyTrans`: return the translation of the given key. Parameters: key (required, e.g. 'amenity').
-* function `tagTrans`: return the translation of the given tag. Parameters: key (required, e.g. 'amenity'), value (required, e.g. 'bar'), count (optional, default 1).
-* function `tagTransList`: return the translations of the given tag for tags with multiple values separated by ';' (e.g. 'cuisine'). Parameters: key (required, e.g. 'cuisine'), value (required, e.g. 'kebab' or 'kebab;pizza;noodles;burger').
-* function `localizedTag`: return a localized tag if available (e.g. 'name:de' for the german translation of the tag). Parameters: tags (the tags property), key prefix (e.g. 'name'). Which language will be returned depends on the "data language" which can be set via Options. If no localized tag is available, the tag value itself will be returned (e.g. value of 'name').
-* function `trans`: return the translation of the given string (e.g. 'save', 'unknown', 'unnamed', ...). Parameters: string (the string to translate).
-* function `repoTrans`: translate strings from this repositories' language file (located in `lang/xy.json`, where `xy` stands for the current locale). The string in the language file can include sprintf placeholders (Use the [sprintf-js module](https://www.npmjs.com/package/sprintf-js). Additional parameters to repoTrans will be passed as arguments to the sprintf function.
-* function `tagsPrefix(tags, prefix)`: return all tags with the specified prefix. The result will be an array with `{ "en": "name:en", "de": "name:de" }` (for the input `{ "name": "foo", "name:en": "english foo", "name:de": "german foo" }` and the prefix "name:").
-* function openingHoursState(opening_hours_definition): returns state of object as string: 'closed', 'open' or 'unknown'.
-* function colorInterpolate(map, value): interpolates between two or more colors. E.g. `colorInterpolate([ 'red', 'yellow', 'green' ], 0.75)`.
-* function enumerate(list): enumerate the given list, e.g. "foo, bar, and bla". Input either an array (`enumerate([ "foo", "bar", "bla" ])`) or a string with `;` as separator (`enumerate("foo;bar;bla")`).
-* function debug(): print all arguments to the javascript console (via `console.log()`)
+
+Function name | Parameters | Description | Defined in module
+--------------|------------|-------------|-------------------
+`keyTrans` | key (required, e.g. 'amenity') | return the translation of the given key
+`tagTrans` | key (required, e.g. 'amenity'), value (required, e.g. 'bar'), count (optional, default 1) | return the translation of the given tag.
+`tagTransList` | key (required, e.g. 'cuisine'), value (required, e.g. 'kebab' or 'kebab;pizza;noodles;burger') | return the translations of the given tag for tags with multiple values separated by ';' (e.g. 'cuisine')
+`localizedTag` | tags (the tags property), key prefix (e.g. 'name') | return a localized tag if available (e.g. 'name:de' for the german translation of the tag). Which language will be returned depends on the "data language" which can be set via Options. If no localized tag is available, the tag value itself will be returned (e.g. value of 'name').
+`trans` | string (the string to translate) | return the translation of the given string (e.g. 'save', 'unknown', 'unnamed', ...)
+`tagsPrefix` | tags, prefix | return all tags with the specified prefix. The result will be an array with `{ "en": "name:en", "de": "name:de" }` (for the input `{ "name": "foo", "name:en": "english foo", "name:de": "german foo" }` and the prefix "name:")
+`openingHoursState` | opening_hours_definition | returns state of object as string: 'closed', 'open' or 'unknown'. | [geowiki-module-opening-hours](https://github.com/geowiki-net/geowiki-module-opening-hours)
+`colorInterpolate` | map, value | interpolates between two or more colors. E.g. `colorInterpolate([ 'red', 'yellow', 'green' ], 0.75)` | [geowiki-module-color](https://github.com/geowiki-net/geowiki-module-color)
+`enumerate` | list | enumerate the given list, e.g. "foo, bar, and bla". Input either an array (`enumerate([ "foo", "bar", "bla" ])`) or a string with `;` as separator (`enumerate("foo;bar;bla")`).
+`debug` | ... | print all arguments to the javascript console (via `console.log()`)
 
 Extra filters:
-* filter websiteUrl: return a valid http link. Example: `{{ "www.google.com"|websiteUrl }}` -> "http://www.google.com"; `{{ "https://google.com"|websiteUrl }}` -> "https://google.com"
-* filter `matches`: regular expression match. e.g. `{{ "test"|matches("e(st)$") }}` returns `[ "est", "st" ]`. You can pass a second parameter with [RegExp flags](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/RegExp). Returns null if it does not match.
-* filter `osmParseDate`: returns an array with the lower and upper boundary of the year of a `start_date` tag. See [openstreetmap-date-parser](https://github.com/plepe/openstreetmap-date-parser) for details.
-* filter `osmFormatDate`: returns the date as localized strings. Accept an object for options, e.g. `{{ tags.start_date|osmFormatDate({ format: 'short' }) }}`. See [openstreetmap-date-format](https://github.com/plepe/openstreetmap-date-format) for details.
-* filter `natsort`: Sort an array naturally, see [natsort](https://www.npmjs.com/package/natsort) for details.
-* filter `ksort`: Sort an associative array by key (alphabetic)
-* filter `unique`: Remove duplicate elements from an array.
-* filter `md5`: calculate md5 hash of a string.
-* filter `enumerate`: enumerate the given list, e.g. "foo, bar, and bla". Input either an array (`[ "foo", "bar", "bla" ]|enumerate`) or a string with `;` as separator (`"foo;bar;bla"|enumerate`).
-* filter `debug`: print the value (and further arguments) to the javascript console (via `console.log()`)
-* filter `wikipediaAbstract`: shows the abstract of a Wikipedia article in the selected data language (or, if not available, the language which was used in input, resp. 'en' for Wikidata input). Input is either 'language:article' (e.g. 'en:Douglas Adams') or a wikidata id (e.g. 'Q42').
-* filter `wikidataEntity`: returns the wikidata entity in structured form (or `null` if the entity is not cached or `false` if it does not exist). Example: https://www.wikidata.org/wiki/Special:EntityData/Q42.json
-* filter `json_pp`: JSON pretty print the object. As parameter to the filter, the following options can be passed:
-  * `indent`: indentation (default: 2)
-* filter `yaml`: YAML pretty print the object. As options the filter, all options to [yaml.dump of js-yaml](https://github.com/nodeca/js-yaml#dump-object---options-) can be used.
-* filter `formatUnit`: format a value in the selected unit system of the user. Use as parameter the type of measurement ('distance' (default), 'area', 'speed', 'height', 'coord'). Example: `{{ 2|formatUnit('distance') }}` -> '2 m'.
+Function name | Input | Parameters | Description | Defined in module
+--------------|-------|------------|-------------|-------------------
+`websiteUrl` | url | - | return a valid http link. Example: `{{ "www.google.com"|websiteUrl }}` -> "http://www.google.com"; `{{ "https://google.com"|websiteUrl }}` -> "https://google.com"
+`matches` | string | regular expression | regular expression match. e.g. `{{ "test"|matches("e(st)$") }}` returns `[ "est", "st" ]`. You can pass a second parameter with [RegExp flags](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/RegExp). Returns null if it does not match.
+`osmParseDate` | date | | returns an array with the lower and upper boundary of the year of a `start_date` tag. See [openstreetmap-date-parser](https://github.com/plepe/openstreetmap-date-parser) for details.
+`osmFormatDate` | date | options | returns the date as localized strings. Accept an object for options, e.g. `{{ tags.start_date|osmFormatDate({ format: 'short' }) }}`. See [openstreetmap-date-format](https://github.com/plepe/openstreetmap-date-format) for details.
+`natsort` | string[] | | Sort an array naturally, see [natsort](https://www.npmjs.com/package/natsort) for details.
+`ksort` | object | | Sort an associative array by key (alphabetic)
+`unique` | string[] | | Remove duplicate elements from an array.
+`md5` | string | | calculate md5 hash of a string.
+`enumerate` | string|string[] | | enumerate the given list, e.g. "foo, bar, and bla". Input either an array (`[ "foo", "bar", "bla" ]|enumerate`) or a string with `;` as separator (`"foo;bar;bla"|enumerate`).
+`debug` | * | ... | print the value (and further arguments) to the javascript console (via `console.log()`)
+`wikidataEntity` | id | | returns the wikidata entity in structured form (or `null` if the entity is not cached or `false` if it does not exist). Example: `{{ 'Q42'|wikidataEntity|json_encode }}` -> https://www.wikidata.org/wiki/Special:EntityData/Q42.json
+`json_pp` | * | options | JSON pretty print the object. As parameter to the filter, the following options can be passed: `indent`: indentation (default: 2)
+`yaml` | * | options | YAML pretty print the object. As options the filter, all options to [yaml.dump of js-yaml](https://github.com/nodeca/js-yaml#dump-object---options-) can be used.
+`formatUnit` | value | type of measurement | format a value in the selected unit system of the user. Use as parameter the type of measurement ('distance' (default), 'area', 'speed', 'height', 'coord'). Example: `{{ 2|formatUnit('distance') }}` -> '2 m'.
 
 Notes:
 * Variables will automatically be HTML escaped, unless the filter raw is used, e.g.: `{{ tags.name|raw }}`
