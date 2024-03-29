@@ -86,6 +86,7 @@ Function name | Input | Parameters | Description | Defined in module
 `json_pp` | * | options | JSON pretty print the object. As parameter to the filter, the following options can be passed: `indent`: indentation (default: 2)
 `yaml` | * | options | YAML pretty print the object. As options the filter, all options to [yaml.dump of js-yaml](https://github.com/nodeca/js-yaml#dump-object---options-) can be used.
 `formatUnit` | value | type of measurement | format a value in the selected unit system of the user. Use as parameter the type of measurement ('distance' (default), 'area', 'speed', 'height', 'coord'). Example: `{{ 2\|formatUnit('distance') }}` -> '2 m'.
+`lengthToPx` | value | `map` | Convert a length to pixels at the current zoom level, e.g. `{{ '2m'\|lengthToPx(map) }}` -> `4.91`. The `map` object is important, because it contains the `metersPerPixel` value. The following units are supported: 'm' (Meters). If no unit is given (or 'px'), the value is returned. The result is always a number.
 
 Notes:
 * Variables will automatically be HTML escaped, unless the filter raw is used, e.g.: `{{ tags.name\|raw }}`
