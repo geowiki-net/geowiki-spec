@@ -72,22 +72,22 @@ Function name | Parameters | Description | Defined in module
 Extra filters:
 Function name | Input | Parameters | Description | Defined in module
 --------------|-------|------------|-------------|-------------------
-`websiteUrl` | url | - | return a valid http link. Example: `{{ "www.google.com"|websiteUrl }}` -> "http://www.google.com"; `{{ "https://google.com"|websiteUrl }}` -> "https://google.com"
-`matches` | string | regular expression | regular expression match. e.g. `{{ "test"|matches("e(st)$") }}` returns `[ "est", "st" ]`. You can pass a second parameter with [RegExp flags](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/RegExp). Returns null if it does not match.
+`websiteUrl` | url | - | return a valid http link. Example: `{{ "www.google.com"\|websiteUrl }}` -> "http://www.google.com"; `{{ "https://google.com"\|websiteUrl }}` -> "https://google.com"
+`matches` | string | regular expression | regular expression match. e.g. `{{ "test"\|matches("e(st)$") }}` returns `[ "est", "st" ]`. You can pass a second parameter with [RegExp flags](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/RegExp). Returns null if it does not match.
 `osmParseDate` | date | | returns an array with the lower and upper boundary of the year of a `start_date` tag. See [openstreetmap-date-parser](https://github.com/plepe/openstreetmap-date-parser) for details.
-`osmFormatDate` | date | options | returns the date as localized strings. Accept an object for options, e.g. `{{ tags.start_date|osmFormatDate({ format: 'short' }) }}`. See [openstreetmap-date-format](https://github.com/plepe/openstreetmap-date-format) for details.
+`osmFormatDate` | date | options | returns the date as localized strings. Accept an object for options, e.g. `{{ tags.start_date\|osmFormatDate({ format: 'short' }) }}`. See [openstreetmap-date-format](https://github.com/plepe/openstreetmap-date-format) for details.
 `natsort` | string[] | | Sort an array naturally, see [natsort](https://www.npmjs.com/package/natsort) for details.
 `ksort` | object | | Sort an associative array by key (alphabetic)
 `unique` | string[] | | Remove duplicate elements from an array.
 `md5` | string | | calculate md5 hash of a string.
-`enumerate` | string|string[] | | enumerate the given list, e.g. "foo, bar, and bla". Input either an array (`[ "foo", "bar", "bla" ]|enumerate`) or a string with `;` as separator (`"foo;bar;bla"|enumerate`).
+`enumerate` | string\|string[] | | enumerate the given list, e.g. "foo, bar, and bla". Input either an array (`[ "foo", "bar", "bla" ]\|enumerate`) or a string with `;` as separator (`"foo;bar;bla"\|enumerate`).
 `debug` | * | ... | print the value (and further arguments) to the javascript console (via `console.log()`)
-`wikidataEntity` | id | | returns the wikidata entity in structured form (or `null` if the entity is not cached or `false` if it does not exist). Example: `{{ 'Q42'|wikidataEntity|json_encode }}` -> https://www.wikidata.org/wiki/Special:EntityData/Q42.json
+`wikidataEntity` | id | | returns the wikidata entity in structured form (or `null` if the entity is not cached or `false` if it does not exist). Example: `{{ 'Q42'\|wikidataEntity\|json_encode }}` -> https://www.wikidata.org/wiki/Special:EntityData/Q42.json
 `json_pp` | * | options | JSON pretty print the object. As parameter to the filter, the following options can be passed: `indent`: indentation (default: 2)
 `yaml` | * | options | YAML pretty print the object. As options the filter, all options to [yaml.dump of js-yaml](https://github.com/nodeca/js-yaml#dump-object---options-) can be used.
-`formatUnit` | value | type of measurement | format a value in the selected unit system of the user. Use as parameter the type of measurement ('distance' (default), 'area', 'speed', 'height', 'coord'). Example: `{{ 2|formatUnit('distance') }}` -> '2 m'.
+`formatUnit` | value | type of measurement | format a value in the selected unit system of the user. Use as parameter the type of measurement ('distance' (default), 'area', 'speed', 'height', 'coord'). Example: `{{ 2\|formatUnit('distance') }}` -> '2 m'.
 
 Notes:
-* Variables will automatically be HTML escaped, unless the filter raw is used, e.g.: `{{ tags.name|raw }}`
+* Variables will automatically be HTML escaped, unless the filter raw is used, e.g.: `{{ tags.name\|raw }}`
 * The templates will be rendered when the object becomes visible and when the zoom level changes.
 * If you set an arbitrary value within a twig template (e.g.: `{% set foo = "bar" %}`), it will also be available in further templates of the same object by using (e.g.: `{{ foo }}`). The templates will be evaluated in the order as they are defined.
