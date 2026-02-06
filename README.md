@@ -11,6 +11,7 @@ The following fields are possible for categories (the only mandatory value is qu
 | integer | a decimal number, e.g. `1`, `6`.
 | string | an arbitrary text.
 | length | a number with an optional unit. Availble units:<ul><li>'px' (default, a distance in display pixels)</li><li>'m' (meters in world coordinate system)</li><li>'%' (percentage of total length - if supported)</li>
+| html string | A string with HTML markup (e.g. `<b>bold text</b>`).
 
 
 ## Global fields
